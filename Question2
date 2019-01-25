@@ -1,0 +1,16 @@
+UNF: All data in one object:
+Projects(PersCode, PersName, DOB, LabCode, LabName, ResearchID, Description, Supervisor)
+
+1NF: Split repeating and calculated groups and assign primary keys:
+Lab(PersCode(PK), PersName, DOB, LabCode(PK), LabName)
+Research(ResearchID(PK), Description, Supervisor)
+
+2NF: Every non-prime attribute must be dependant wholely on the primary key:
+Pers(PersCode(PK), PersName, DOB)
+Lab(LabCode(PK), LabName)
+Research(ResearchCode(PK), Description, Supervisor)
+
+3NF: Every non-prime attribute must be non-transitively dependant on the primary key:
+Pers(PersCode(PK), PersName, DOB, researchID)
+Lab(LabCode(PK), LabName)
+Research(ResearchCode(PK), Description, Supervisor)
