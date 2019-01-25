@@ -1,16 +1,26 @@
 UNF: All data in one object:
-Projects(PersCode, PersName, DOB, LabCode, LabName, ResearchID, Description, Supervisor)
+
+   Projects(PersCode, PersName, DOB, LabCode, LabName, ResearchID, Description, Supervisor)
 
 1NF: Split repeating and calculated groups and assign primary keys:
-Lab(PersCode(PK), PersName, DOB, LabCode(PK), LabName)
-Research(ResearchID(PK), Description, Supervisor)
+Since ResearchCode, Description and Supervisor are repeating, they are put in a seperate table. PersCode, LabCode and ResearchCode are unique numbers and therefore the best primary keys.
+
+   Experiment(PersCode(PK), PersName, DOB, LabCode(PK), LabName, ResearchCode(PK))
+   Research(ResearchCode(PK), Description, Supervisor)
 
 2NF: Every non-prime attribute must be dependant wholely on the primary key:
-Pers(PersCode(PK), PersName, DOB)
-Lab(LabCode(PK), LabName)
-Research(ResearchCode(PK), Description, Supervisor)
+Since PersName and DOB are only dependant on PersCode, these are set in a seperate table. 
+Also LabName is only dependant on LabCode, so this is also put in a seperate table.
 
-3NF: Every non-prime attribute must be non-transitively dependant on the primary key:
-Pers(PersCode(PK), PersName, DOB, researchID)
-Lab(LabCode(PK), LabName)
-Research(ResearchCode(PK), Description, Supervisor)
+   Experiment(PersCode(PK), LabCode(PK), ResearchCode(PK))
+   Pers(PersCode(PK), PersName, DOB)
+   Lab(LabCode(PK), LabName)
+   Research(ResearchCode(PK), Description, Supervisor)
+
+3NF: Every non-prime attribute must be non-transitively dependent on every key
+Same as 2NF, since the only 2 non-prime attributes in one table are Description and Supervisor and both are solely dependant on the LabCode.
+
+   Experiment(PersCode(PK), LabCode(PK), ResearchCode(PK))
+   Pers(PersCode(PK), PersName, DOB)
+   Lab(LabCode(PK), LabName)
+   Research(ResearchCode(PK), Description, Supervisor)

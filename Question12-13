@@ -1,10 +1,16 @@
 Curl API
 Question 12:
 What is the mapping location of the variant rs4224828 in the mouse?
-curl 'http://rest.ensembl.org/map/mouse/NCBIM37/4:135999864-135999864:1/NCBIM37' -H 'Content-type:application/json'
-mapped":{"strand":"1","assembly":"NCBIM37","start":135999864,"coord_system":"chromosome","seq_region_name":"4","end":135999864}
+
+    Ensembl genome browser location of rs4224828: NCBIM37/4:135999864-135999864:1
+    curl 'http://rest.ensembl.org/map/mouse/NCBIM37/4:135999864-135999864:1/NCBIM37' -H 'Content-type:application/json'
+
+    "{"mappings":[{"original":{"seq_region_name":"4","strand":1,"end":135999864,"start":135999864,"coord_system":"chromosome","assembly":"NCBIM37"},
+    "mapped":{"seq_region_name":"4","strand":"1","coord_system":"chromosome","assembly":"NCBIM37","end":135999864,"start":135999864}}]}"
 
 Question 13:
 Give the first 100 bases of the genomic FASTA sequence of the MYCN gene in the zebrafish.
-NCBI: MYCN location: Chromosome 20, NC_007131.7 (33294442..33299644)
-curl 'http://rest.ensembl.org/sequence/region/zebrafish/20:33294442..33294542' -H 'Content-type:text/x-fasta'
+    NCBI: MYCN location: Chromosome 20, NC_007131.7 (33294442..33299644)
+    curl 'http://rest.ensembl.org/sequence/region/zebrafish/20:33294442..33294542' -H 'Content-type:text/x-fasta'
+
+    "ACAGCCCGAAACACAGAGGCGCAGAACAGTCTTCAGTCGCCGCGGTAGATGTGCGACTCCAAACGGGAGGCACAGTGACTGCGATAAAGAAGGGACAAGAA"

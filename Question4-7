@@ -6,24 +6,26 @@ $ mysql examen < bioinf_examen.sql
 
 Question 4:
 Give the name and length of the smallest gene in the genome.
-SELECT gene_name, min( seq_region_end - seq_region_start ) AS length FROM gene GROUP BY gene_name ORDER BY length limit 1;
+    SELECT gene_name, min( seq_region_end - seq_region_start ) AS length FROM gene GROUP BY gene_name ORDER BY length limit 1;
+
 
 Question 5:
 What is the name of the gene with the most transcripts? What is the number of transcripts of this gene?
-SELECT count(*) AS transcripts, g.gene_name FROM transcript t JOIN gene g ON t.gene_id = g.gene_id  GROUP BY g.gene_name ORDER BY transcripts desc LIMIT 1;
+    SELECT count(*) AS transcripts, g.gene_name FROM transcript t JOIN gene g ON t.gene_id = g.gene_id  GROUP BY g.gene_name ORDER BY transcripts desc LIMIT 1;
 
 Question 6:
 Give the name of the chromosome with the second most genes that tell something about cancer. What is the number of exons of this chromosome? (2 queries) 
-SELECT chromosome, count(g.gene_name) as genes FROM gene g WHERE description LIKE "%cancer%" GROUP BY chromosome ORDER BY genes desc LIMIT 1 OFFSET 1;
+    SELECT chromosome, count(g.gene_name) as genes FROM gene g WHERE description LIKE "%cancer%" GROUP BY chromosome ORDER BY genes desc LIMIT 1 OFFSET 1;
 
-SELECT g.chromosome, count(e.exon_id) AS exons FROM gene g JOIN transcript t ON g.gene_id = t.gene_id 
-    JOIN exon_transcript et ON t.transcript_id = et.transcript_id 
-    JOIN exon e ON et.exon_id = e.exon_id 
-       WHERE chromosome = 9 GROUP BY g.chromosome ORDER BY exons asc;
+    SELECT g.chromosome, count(e.exon_id) AS exons FROM gene g JOIN transcript t ON g.gene_id = t.gene_id 
+        JOIN exon_transcript et ON t.transcript_id = et.transcript_id 
+        JOIN exon e ON et.exon_id = e.exon_id 
+        WHERE chromosome = 9 GROUP BY g.chromosome ORDER BY exons asc;
 
 Question 7:
 Give the number of rows from the exon table and do the same for the exon_transcript table. Explain why there is a difference in number of rows.
-SELECT count(*) FROM exon; -> 642590 rows
-SELECT count(*) FROM transcript; -> 178375 rows
-Normally there are more transcript records than exon records, since an exon can have multiple transcripts due to alternative splicing.
+    SELECT count(*) FROM exon; -> 642590 rows
+    SELECT count(*) FROM transcript; -> 178375 rows
+    An exon can be transcribed starting from multiple locations, this is called alternative splicing. 
+    That's why there are more exon entries than transcript entries, since each exon can be transcribed from multiple sites.
 
